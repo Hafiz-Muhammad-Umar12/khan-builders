@@ -31,14 +31,10 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div
-        className={`max-w-7xl mx-auto px-6 flex justify-between items-center py-3 transition-all duration-300`}
-      >
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center py-3 transition-all duration-300">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <div
-            className={`relative w-44 h-14 transition-all duration-300`}
-          >
+          <div className="relative w-44 h-14 transition-all duration-300">
             <Image
               src="/kblogo.png"
               alt="Logo"
@@ -49,23 +45,25 @@ const Header = () => {
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          {["/", "/about", "/services", "/projects", "/contact", "/signin"].map((path, index) => (
-            <Link
-              key={index}
-              href={path}
-              className={`${
-                scrolled ? "text-black" : "text-white"
-              } font-bold hover:text-yellow-500 transition duration-200`}
-            >
-              {path === "/" ? "Home" : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
-            </Link>
-          ))}
+        {/* ✅ Updated Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-6 font-bold text-1xl">
+          {["/", "/about", "/services", "/projects", "/contact", "/signin"].map(
+            (path, index) => (
+              <Link
+                key={index}
+                href={path}
+                className="text-black hover:text-yellow-500 transition duration-200"
+              >
+                {path === "/"
+                  ? "Home"
+                  : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
+              </Link>
+            )
+          )}
 
           <Link
             href="/signup"
-            className="ml-2 px-5 py-2 rounded-full bg-black text-white hover:bg-yellow-500 shadow-md hover:shadow-lg transition duration-300"
+            className="ml-2 px-5 py-2 rounded-full bg-black text-white hover:bg-yellow-500 shadow-md hover:shadow-lg transition duration-300 text-lg"
           >
             Sign Up
           </Link>
@@ -77,23 +75,25 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* ✅ Updated Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-6 py-4 bg-white/90 backdrop-blur-md rounded-b-lg shadow-lg space-y-3">
-          {["/", "/about", "/services", "/projects", "/contact", "/signin"].map((path, index) => (
-            <Link
-              key={index}
-              href={path}
-              className={`block ${
-                scrolled ? "text-black" : "text-white"
-              } font-bold hover:text-yellow-500 transition duration-200`}
-            >
-              {path === "/" ? "Home" : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
-            </Link>
-          ))}
+          {["/", "/about", "/services", "/projects", "/contact", "/signin"].map(
+            (path, index) => (
+              <Link
+                key={index}
+                href={path}
+                className="block text-black font-bold text-2xl hover:text-yellow-500 transition duration-200"
+              >
+                {path === "/"
+                  ? "Home"
+                  : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
+              </Link>
+            )
+          )}
           <Link
             href="/signup"
-            className="block w-full text-center px-4 py-2 rounded-full bg-black text-white shadow-md hover:shadow-lg transition duration-300"
+            className="block w-full text-center px-4 py-2 rounded-full bg-black text-white shadow-md hover:shadow-lg transition duration-300 text-lg"
           >
             Sign Up
           </Link>

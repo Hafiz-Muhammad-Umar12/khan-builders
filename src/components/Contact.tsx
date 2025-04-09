@@ -1,70 +1,60 @@
 "use client"
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { useState, useEffect } from "react"
+// import { useState } from "react"
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa"
 import dynamic from "next/dynamic"
-import emailjs from "emailjs-com"
+// import emailjs from "emailjs-com"
 
 const ParticlesBackground = dynamic(() => import("./ParticlesBackground"), {
   ssr: false,
 })
 
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    subject: "",
-    message: "",
-  })
-
-  useEffect(() => {
-    // Dynamically loading the EmailJS script
-    const script = document.createElement("script")
-    script.type = "text/javascript"
-    script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-    script.async = true
-    script.onload = () => {
-      emailjs.init("W1STnRj_rqgjDJh9B")  // Replace with your public key
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+  
+    formData.append("access_key", "0d9999d0-d694-4864-90a8-9d5a80d6c128");
+  
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+  
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: json
+    });
+  
+    const result = await response.json();
+  
+    if (result.success) {
+      toast.success("Message sent successfully! ");
+  
+      // Wait 2 seconds before refreshing the page
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } else {
+      toast.error("Something went wrong. Try again!");
     }
-    document.body.appendChild(script)
-
-    return () => {
-      // Clean up the script on component unmount
-      document.body.removeChild(script)
-    }
-  }, [])
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
+  
+  // const [formData, ] = useState({
+  //   name: "",
+  //   email: "",
+  //   company: "",
+  //   subject: "",
+  //   message: "",
+  // })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
 
-    const serviceID = "service_ncbcnd8" // Replace with your actual service ID
-    const templateID = "template_ixkvmjl" // Replace with your actual template ID
-    const userID = "YOUR_USER_ID" // Replace with your actual user ID
-
-    // Logging the form data to check
-    console.log("Form Data:", formData)
-
-    emailjs
-      .send(serviceID, templateID, formData, userID)
-      .then((response) => {
-        console.log("Message sent successfully:", response)
-        alert("Your message has been sent!")
-      })
-      .catch((error) => {
-        console.error("Error sending message:", error)
-        alert("Failed to send your message. Please try again later.")
-      })
-
-    setFormData({ name: "", email: "", company: "", subject: "", message: "" })
-  }
-
+ 
   return (
     <section className="bg-white w-full min-h-screen relative overflow-hidden py-16 px-6">
       <ParticlesBackground />
@@ -113,8 +103,8 @@ export default function ContactPage() {
                 type="text"
                 name="name"
                 placeholder="Full Name *"
-                value={formData.name}
-                onChange={handleChange}
+                // value={formData.name}
+                // onChange={handleChange}
                 required
                 className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
@@ -122,8 +112,8 @@ export default function ContactPage() {
                 type="email"
                 name="email"
                 placeholder="Your Email *"
-                value={formData.email}
-                onChange={handleChange}
+                // value={formData.email}
+                // onChange={handleChange}
                 required
                 className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
@@ -133,16 +123,16 @@ export default function ContactPage() {
                 type="text"
                 name="company"
                 placeholder="Company"
-                value={formData.company}
-                onChange={handleChange}
+                // value={formData.company}
+                // onChange={handleChange}
                 className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
               <input
                 type="text"
                 name="subject"
                 placeholder="Subject *"
-                value={formData.subject}
-                onChange={handleChange}
+                // value={formData.subject}
+                // onChange={handleChange}
                 required
                 className="w-full p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
@@ -151,8 +141,8 @@ export default function ContactPage() {
               name="message"
               rows={5}
               placeholder="Message *"
-              value={formData.message}
-              onChange={handleChange}
+              // value={formData.message}
+              // onChange={handleChange}
               required
               className="w-full mt-4 p-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
             ></textarea>
@@ -162,6 +152,8 @@ export default function ContactPage() {
             >
               Send Message
             </button>
+            {/* <ToastContainer position="top-right" /> */}
+
           </form>
         </div>
       </div>

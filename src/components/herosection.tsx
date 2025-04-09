@@ -62,7 +62,7 @@ export default function HeroSection() {
         </p>
         <Link href="/contact">
         <button
-          className="mt-6 px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md transition-all hover:scale-105 hover:bg-yellow-600"
+          className="mt-6 px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md transition-all hover:scale-105 hover:bg-yellow-500"
           data-aos="fade-up"
           data-aos-delay="900"
         >

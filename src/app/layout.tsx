@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -33,7 +34,7 @@ export default function RootLayout({
       
       >
     <Header />
-
+    <ToastContainer position="top-right" className="z-[9999]" />
         {children}
         <Footer/>
       </body>

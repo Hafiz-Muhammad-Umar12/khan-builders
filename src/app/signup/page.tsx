@@ -18,7 +18,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 mt-12">
+    <div className="flex min-h-screen bg-gray-100 ">
       {/* Left side with image */}
       <div className="flex-1 bg-gray-100 flex justify-center items-center">
         <Image
